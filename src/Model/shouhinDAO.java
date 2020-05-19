@@ -95,6 +95,21 @@ public class shouhinDAO {
 		return slist;
 	}
 
+	public void delete(int sid) {
+		try (Connection con = DriverManager.getConnection(URL,USER,PASS);){
+
+			String sql = "delete FROM shouhin where sid =?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, sid);
+			stmt.executeUpdate();
+			stmt.close();
+
+		} catch (SQLException e) {
+			System.out.println("deleteエラー:" + e.getMessage());
+		}
+
+
+	}
 
 
 }

@@ -31,8 +31,32 @@ public class InsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			request.setCharacterEncoding("UTF-8");
+			String sname = request.getParameter("sname");
+			String tankaStr = request.getParameter("tanka");
+			int tanka = Integer.parseInt(tankaStr);
+			if(sname.equals("")) {
+				request.setAttribute("mes", "商品名を入力してください");
+				request.setAttribute("url", "insert.html");
 
-	}
+				RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+			shouhin s1 = new shouhin(0, sname,tanka);
+
+			request.setAttribute("shouhin", s1);
+			RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/kakunin.jsp");
+			dispatcher.forward(request, response);
+		}catch(NumberFormatException e) {
+			request.setAttribute("mes", "単価には数字を入力してください");
+			request.setAttribute("url", "insert.html");
+			RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
+		}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,11 +70,13 @@ public class InsertServlet extends HttpServlet {
 		shouhinDAO dao = new shouhinDAO();
 		shouhin s1 = new shouhin(0, sname,tanka);
 		dao.insert(s1);
-		
-		request.setAttribute("shouhin",s1);
-		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/insert.jsp");
-		dispatcher.forward(request, response);
-		
+
+
+		response.sendRedirect("slist");
+//		request.setAttribute("shouhin",s1);
+//		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/insert.jsp");
+//		dispatcher.forward(request, response);
+
 	}
 
 }

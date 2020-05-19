@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>占い</title>
+<title>エラー</title>
 </head>
 <body>
-
-<p> ${uranai.today}の運勢は${uranai.luck}です</p>
-<jsp:include page="/footer.jsp"/>
-<%@ include file="/common.jsp" %>
+<h1>エラー</h1>
+<p>${mes}</p>
+<a href="${url}">戻る</a>
 </body>
 </html>

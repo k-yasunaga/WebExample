@@ -17,7 +17,7 @@ public class UriageDAO {
 		uriage u=null;
 		try {
 			Connection con = DriverManager.getConnection(URL,USER,PASS);
-			String sql = "select * from uriage where sid=?";
+			String sql = "select * from uriage where uid=?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(1, Uid);
 			ResultSet rs = stmt.executeQuery();

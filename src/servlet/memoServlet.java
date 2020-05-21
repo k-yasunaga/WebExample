@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.UriageDAO;
-import Model.shouhin;
-import Model.shouhinDAO;
-import Model.uriage;
+import memo.memo;
+import memo.memoDAO;
 
 /**
- * Servlet implementation class uriageInfo
+ * Servlet implementation class memoServlet
  */
-@WebServlet("/uinfo")
-public class uriageInfoServlet extends HttpServlet {
+@WebServlet("/memo")
+public class memoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public uriageInfoServlet() {
+    public memoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +32,14 @@ public class uriageInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String uidstr = request.getParameter("uid");
-		int uid = Integer.parseInt(uidstr);
+		String mid= request.getParameter("mid");
+		int m1 = Integer.parseInt(mid);
+		memoDAO dao= new memoDAO();
+		memo m = dao.findByMid(m1);
 
+		request.setAttribute("memo", m);
 
-
-		UriageDAO dao= new UriageDAO();
-		uriage u= dao.findByUid(uid);
-		request.setAttribute("uriage",u);
-
-		shouhinDAO dao1= new shouhinDAO();
-		shouhin s= dao1.findBysid(u.getSid());
-		request.setAttribute("shouhin",s);
-		
-		
-		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/uinfo.jsp");
+		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/memo.jsp");
 		dispatcher.forward(request, response);
 	}
 

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,22 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.UriageDAO;
-import Model.shouhin;
-import Model.shouhinDAO;
-import Model.uriage;
+import memo.memo;
+import memo.memoDAO;
 
 /**
- * Servlet implementation class uriageInfo
+ * Servlet implementation class memoListServlet
  */
-@WebServlet("/uinfo")
-public class uriageInfoServlet extends HttpServlet {
+@WebServlet("/memolist")
+public class memoListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public uriageInfoServlet() {
+    public memoListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +32,12 @@ public class uriageInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String uidstr = request.getParameter("uid");
-		int uid = Integer.parseInt(uidstr);
+		memoDAO dao= new memoDAO();
+		//全て検索
+		ArrayList<memo> mlist=dao.findAll();
 
-
-
-		UriageDAO dao= new UriageDAO();
-		uriage u= dao.findByUid(uid);
-		request.setAttribute("uriage",u);
-
-		shouhinDAO dao1= new shouhinDAO();
-		shouhin s= dao1.findBysid(u.getSid());
-		request.setAttribute("shouhin",s);
-		
-		
-		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/uinfo.jsp");
+		request.setAttribute("list",mlist);
+		RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/memolist.jsp");
 		dispatcher.forward(request, response);
 	}
 

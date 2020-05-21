@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+package servlet{
+	class delservlet{
+	+doGet()
+	doPost()
+	}
+	class writeservlet{
+	+doGet()
+	doPost()
+	}
+}
+
+package model{
+	class MainDAO{
+		+findAll():ArrayList
+		+write(int mid)
+		+delete(int mid)
+	}
+	class Main{
+		-int mid
+		-String name
+		-Date day
+		keiziban(mid,name,day)
+	}
+
+}
+delservlet..>MainDAO
+writeservlet..>MainDAO
+MainDAO *- Main
+@enduml

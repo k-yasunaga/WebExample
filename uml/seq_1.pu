@@ -1,0 +1,15 @@
+@startuml
+title 掲示板書き込み
+actor ユーザー
+ユーザー->画面表示:アクセス
+
+画面表示 -> writeServlet++:GETリクエスト
+writeServlet->write.jsp
+write.jsp->ユーザー:入力フォーム表示
+ユーザー->write.jsp:入力
+write.jsp->writeServlet:post
+writeServlet -> MainDAO**:生成()
+MainDAO -> Main**:投稿を生成
+Main->画面表示:投稿を表示
+画面表示->ユーザー:投稿を見せる
+@enduml

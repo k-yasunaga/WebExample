@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+package servlet{
+	class ShouhinServlet{
+		+doGet()
+	}
+	class DelServlet{
+		+doGet()
+		+doPost()
+	}
+	class InsertServlet{
+		+doGet()
+		+doPost()
+	}
+	class UpdateServlet{
+		+doGet()
+		+doPost()
+	}
+	class UriageServlet{
+		+doGet()
+		+doPost()
+	}
+}
+package model{
+	class ShouhinDAO{
+		+findAll():ArrayList
+		+findBySid(int sid):Shouhin
+		+insert(Shouhin s)
+		+update(Shouhin s)
+		+delete(int sid)
+	}
+	class Shouhin{
+		-sid : int
+		-sname : String
+		-tanka : int
+		Shouhin(sid,sname,tanka)
+	}
+	class UriageDAO{
+		+findBySid(int sid):ArrayList
+		+insert(Uriage u)
+	}
+	class Uriage{
+		-uid : int
+		-sid : int
+		-kosu : int
+		-hi : Timestamp
+		Uriage(uid,sid,kosu,hi)
+	}
+}
+ShouhinServlet..>ShouhinDAO
+DelServlet..>ShouhinDAO
+UpdateServlet..>ShouhinDAO
+InsertServlet..>ShouhinDAO
+UriageServlet..>ShouhinDAO
+UriageServlet..>UriageDAO
+
+ShouhinDAO ..> Shouhin
+UriageDAO ..> Uriage
+
+@enduml

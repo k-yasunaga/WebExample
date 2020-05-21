@@ -1,0 +1,14 @@
+@startuml
+title 商品一覧 /shouhin GET
+actor ユーザ
+ユーザ -> ShouhinServlet++:GETリクエスト
+ShouhinServlet -> ShouhinDAO**:生成()
+ShouhinServlet -> ShouhinDAO++:findAll()
+ShouhinDAO -> Shouhin**:リストを生成
+ShouhinDAO --> ShouhinServlet--:Shouhinリスト
+ShouhinServlet -> Request++:setAttribute(Shouhinリスト)
+Request--
+ShouhinServlet -> shouhin.jsp++:フォワード
+ShouhinServlet--
+shouhin.jsp --> ユーザ:表示
+@enduml

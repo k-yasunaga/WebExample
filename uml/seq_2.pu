@@ -1,0 +1,15 @@
+@startuml
+title 投稿削除
+actor ユーザー
+ユーザー->画面表示:アクセス
+
+画面表示 -> deleteServlet++:GETリクエスト
+deleteServlet->delete.jsp
+delete.jsp->ユーザー:削除ボタン生成
+ユーザー->delete.jsp:ボタンを押す
+delete.jsp->deleteServlet:post
+deleteServlet -> MainDAO**:生成()
+deleteServlet ->MainDAO:削除
+deleteServlet->画面表示:リダイレクト
+画面表示->ユーザー:見せる
+@enduml

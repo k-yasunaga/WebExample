@@ -1,0 +1,8 @@
+@startuml
+	title 閲覧
+	actor ユーザー
+
+ユーザー->画面表示:アクセス
+画面表示->MainDAO
+MainDAO->ユーザー:表示
+@enduml

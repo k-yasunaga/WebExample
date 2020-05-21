@@ -45,15 +45,46 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		try {
 		request.setCharacterEncoding("UTF-8");
 		String namestr = request.getParameter("name");
 		String adrstr = request.getParameter("adr");
-		memberDAO dao = new memberDAO();
-		member m1= new member(0, namestr,adrstr);
-		dao.insert(m1);
+
+		if(namestr.equals("")) {
+			request.setAttribute("mes", "氏名を入力しやがれ");
+			request.setAttribute("url", "mlist");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
+		if(adrstr.equals("")) {
+			request.setAttribute("mes", "住所を入力しやがれ");
+			request.setAttribute("url", "mlist");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
+
+		if(namestr.length() != 0 && adrstr.length() != 0) {
+			memberDAO dao = new memberDAO();
+			member m1= new member(0, namestr,adrstr);
+			dao.insert(m1);
+
+			response.sendRedirect("mlist");
+		}
 
 
-		response.sendRedirect("mlist");
+		}catch(NumberFormatException e){
+			request.setAttribute("mes", "");
+			request.setAttribute("url", "mlist");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
+
+
+
 	}
 
 }

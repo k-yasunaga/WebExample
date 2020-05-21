@@ -1,0 +1,13 @@
+@startuml
+title 掲示板
+main:書き込み一覧
+delete:get:削除確認\npost:削除
+write:post:書き込み
+
+[*]->main
+main-->delete:リンク\nmid
+main-->write:リンク\nmid
+delete-->delete:post
+write-->main:post\nmid\nname\n本文
+delete-->main:post
+@enduml

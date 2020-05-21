@@ -53,7 +53,7 @@ public class memberDAO {
 				String  name = rs.getString("name");
 				String adr = rs.getString("adr");
 
-				 m1=new member(0,name,adr);
+				 m1=new member(mid,name,adr);
 
 			}
 

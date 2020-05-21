@@ -1,0 +1,16 @@
+@startuml
+title ページ遷移図
+shouhin : 商品一覧
+del:GET 削除確認\nPOST 削除
+update:GET 編集\nPOST 更新
+uriage:追加
+ulist:売り上げ一覧
+
+[*]->shouhin
+shouhin-->del:リンク\nsid
+del-->del:POST\nsid
+shouhin-->update:リンク\nsid
+update-->update:POST\nsid\nsname\ntanka
+shouhin-->ulist:リンク\nsid
+ulist-->uriage:POST\nsid,kosu
+@enduml

@@ -13,8 +13,7 @@
 <p>商品：<c:out value="${shouhin.sname}"/> </p>
 <p>単価：${shouhin.tanka} </p>
 <form action="insert" method="post">
-	<input type="hidden" name="sname" value="${shouhin.sname}"><br>
-	<input type="hidden" name="tanka" value="${shouhin.tanka}"><br>
+
 <input type="submit" value="追加">
 </form>
 </body>

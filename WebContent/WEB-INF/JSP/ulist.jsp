@@ -17,7 +17,10 @@
 </style>
 </head>
 <body>
+<p>welcom ${user.uname}(${user.mail})!!</p>
+<a href="logout">ログアウト</a>
 <a href="uinsert">売上追加</a>
+
 <table>
 <tr><th>売上ID</th> <th>商品ID</th><th>個数</th><th>日</th></tr>
 <c:forEach var="uriage" items="${list}">

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.shouhin;
 import Model.shouhinDAO;
@@ -44,9 +45,13 @@ public class InsertServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 			}
+
 			shouhin s1 = new shouhin(0, sname,tanka);
 
-			request.setAttribute("shouhin", s1);
+			HttpSession session= request.getSession();
+			session.setAttribute("shouhin", s1);
+			//request.setAttribute("shouhin", s1);
+
 			RequestDispatcher dispatcher =request.getRequestDispatcher("/WEB-INF/JSP/kakunin.jsp");
 			dispatcher.forward(request, response);
 		}catch(NumberFormatException e) {
@@ -62,13 +67,12 @@ public class InsertServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String sname = request.getParameter("sname");
-		String tankaStr = request.getParameter("tanka");
-		int tanka = Integer.parseInt(tankaStr);
+
 
 		shouhinDAO dao = new shouhinDAO();
-		shouhin s1 = new shouhin(0, sname,tanka);
+		HttpSession session= request.getSession();
+
+		shouhin s1 = (shouhin)session.getAttribute("shouhin");
 		dao.insert(s1);
 
 

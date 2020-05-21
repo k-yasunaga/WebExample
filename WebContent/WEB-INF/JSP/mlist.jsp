@@ -31,10 +31,9 @@
 <tr><th><h2>氏名</h2></th><th><h2>住所</h2></th></tr>
 <c:forEach var="member" items="${list}">
 	<tr>
-		<td>${member.mid}</td>
-		<td>${member.name}</td>
+		<td><a href="mupdate?mid=${member.mid}">${member.name}</a></td>
 		<td>${member.adr}</td>
-		<td><a href="mupdate?mid=${member.mid}">変更</a></td>
+
 	</tr>
 </c:forEach>
 </table>

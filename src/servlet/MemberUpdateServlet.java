@@ -54,13 +54,27 @@ public class MemberUpdateServlet extends HttpServlet {
 		int m = Integer.parseInt(midstr);
 		String namestr= request.getParameter("name");
 		String adrstr = request.getParameter("adr");
+		if(namestr.equals("")) {
+			request.setAttribute("mes", "氏名を入力しやがれ");
+			request.setAttribute("url", "mlist");
 
-		memberDAO dao = new memberDAO();
-		member m2 = new member(m, namestr,adrstr);
-		dao.update(m2);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
+		if(adrstr.equals("")) {
+			request.setAttribute("mes", "住所を入力しやがれ");
+			request.setAttribute("url", "mlist");
 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/error.jsp");
+			dispatcher.forward(request, response);
+		}
 
-		response.sendRedirect("mlist");
+		if(namestr.length() != 0 && adrstr.length() != 0) {
+			memberDAO dao = new memberDAO();
+			member m2 = new member(m, namestr,adrstr);
+			dao.update(m2);
+			response.sendRedirect("mlist");
+		}
 	}
 
 }

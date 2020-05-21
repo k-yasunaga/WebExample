@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.UriageDAO;
 import Model.uriage;
+import Model.user;
 
 /**
  * Servlet implementation class uriagelistServlet
@@ -32,6 +34,14 @@ public class uriagelistServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session= request.getSession();
+
+		user u= (user)session.getAttribute("user");
+
+		if(u==null) {
+			response.sendRedirect("login");
+			return;
+		}
 		UriageDAO dao= new UriageDAO();
 		//全て検索
 		ArrayList<uriage> ulist=dao.findAll();
